@@ -198,7 +198,7 @@ Akan muncul menu interaktif di terminal:
 
 ```
 ================================================
-   CIPHER LAB — Mode CLI
+   CIPHERX — Mode CLI
    Caesar Cipher & Rail Fence Cipher
 ================================================
 
