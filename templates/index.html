@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kriptografi Dasar — Caesar & Rail Fence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-badge">KRIPTOGRAFI</div>
+      <h1 class="site-title">Cipher Lab</h1>
+      <p class="site-sub">Caesar Cipher &amp; Rail Fence Cipher — Demonstrasi Enkripsi &amp; Dekripsi</p>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- ======================================================
+         KARTU FORM INPUT
+    ======================================================= -->
+    <section class="card card-form">
+      <div class="card-header">
+        <span class="card-icon">⚙</span>
+        <h2>Parameter</h2>
+      </div>
+
+      <form method="POST" action="/">
+
+        <!-- Baris 1: Algoritma & Mode -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="algorithm">Algoritma</label>
+            <div class="select-wrapper">
+              <select id="algorithm" name="algorithm">
+                <option value="caesar"   {% if form_data.algorithm == 'caesar'   %}selected{% endif %}>Caesar Cipher</option>
+                <option value="railfence"{% if form_data.algorithm == 'railfence'%}selected{% endif %}>Rail Fence Cipher</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mode">Mode</label>
+            <div class="select-wrapper">
+              <select id="mode" name="mode">
+                <option value="encrypt"{% if form_data.mode == 'encrypt'%}selected{% endif %}>🔒 Enkripsi</option>
+                <option value="decrypt"{% if form_data.mode == 'decrypt'%}selected{% endif %}>🔓 Dekripsi</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Baris 2: Teks & Key -->
+        <div class="form-row">
+          <div class="form-group form-group--wide">
+            <label for="text" id="text-label">
+              Teks Input
+              <span class="label-hint" id="text-hint">plaintext untuk enkripsi / ciphertext untuk dekripsi</span>
+            </label>
+            <textarea
+              id="text"
+              name="text"
+              rows="4"
+              placeholder="Masukkan teks di sini..."
+              spellcheck="false"
+            >{{ form_data.text }}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="key">
+              Key
+              <span class="label-hint" id="key-hint">geser huruf (Caesar) / jumlah rail (Rail Fence)</span>
+            </label>
+            <input
+              type="number"
+              id="key"
+              name="key"
+              min="1"
+              placeholder="contoh: 3"
+              value="{{ form_data.key }}"
+            />
+          </div>
+        </div>
+
+        <!-- Tombol Proses -->
+        <div class="form-action">
+          <button type="submit" class="btn-process">
+            <span class="btn-icon">⚡</span>
+            Proses
+          </button>
+          <a href="/" class="btn-reset">Reset</a>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ======================================================
+         PESAN ERROR
+    ======================================================= -->
+    {% if error %}
+    <div class="alert-error">
+      <span class="alert-icon">✕</span>
+      <span>{{ error }}</span>
+    </div>
+    {% endif %}
+
+    <!-- ======================================================
+         KARTU HASIL OUTPUT
+    ======================================================= -->
+    {% if result %}
+    <section class="card card-result">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <h2>Hasil</h2>
+        <span class="badge-algo">{{ result.algorithm }} — {{ result.mode }}</span>
+      </div>
+
+      <!-- Tabel ringkasan parameter -->
+      <div class="result-meta">
+        <div class="meta-item">
+          <span class="meta-label">Algoritma</span>
+          <span class="meta-value">{{ result.algorithm }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Mode</span>
+          <span class="meta-value mode-{{ 'enc' if result.mode == 'Enkripsi' else 'dec' }}">
+            {{ '🔒' if result.mode == 'Enkripsi' else '🔓' }} {{ result.mode }}
+          </span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Key</span>
+          <span class="meta-value key-value">{{ result.key }}</span>
+        </div>
+      </div>
+
+      <!-- Blok plaintext -->
+      <div class="text-block text-block--plain">
+        <div class="text-block-label">
+          <span class="dot dot--plain"></span>
+          Plaintext
+        </div>
+        <div class="text-block-content">{{ result.plaintext }}</div>
+      </div>
+
+      <!-- Blok ciphertext -->
+      <div class="text-block text-block--cipher">
+        <div class="text-block-label">
+          <span class="dot dot--cipher"></span>
+          Ciphertext
+        </div>
+        <div class="text-block-content">{{ result.ciphertext }}</div>
+      </div>
+
+    </section>
+    {% endif %}
+
+    <!-- ======================================================
+         PANEL REFERENSI ALGORITMA (Accordion)
+    ======================================================= -->
+    <section class="card card-reference">
+      <div class="card-header">
+        <span class="card-icon">📖</span>
+        <h2>Referensi Algoritma</h2>
+      </div>
+
+      <details class="accordion">
+        <summary>Caesar Cipher</summary>
+        <div class="accordion-body">
+          <p>Setiap huruf digeser sejauh <strong>k</strong> posisi dalam alfabet. Spasi dan karakter non-huruf tidak berubah.</p>
+          <div class="formula-box">
+            <div><strong>Enkripsi:</strong> C = (P + k) mod 26</div>
+            <div><strong>Dekripsi:</strong> P = (C − k + 26) mod 26</div>
+          </div>
+          <p><strong>Contoh</strong> (key = 3): <code>HELLO</code> → <code>KHOOR</code></p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Rail Fence Cipher</summary>
+        <div class="accordion-body">
+          <p>Teks ditulis secara zig-zag melewati <strong>n</strong> rel, lalu dibaca baris per baris.</p>
+          <div class="formula-box">
+            <pre>Plaintext: HELLO WORLD  (3 rail)
+Rail 0: H . . . O . . . L .
+Rail 1: . E . L . W . R . D
+Rail 2: . . L . . . O . . .
+Ciphertext: HOL + ELWRD + LO = "HOLELWRDLO"</pre>
+          </div>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Tugas Kriptografi Dasar &mdash; Implementasi Manual tanpa Library Kriptografi</p>
+  </footer>
+
+  <!-- Script untuk update hint label secara dinamis -->
+  <script>
+    const modeSelect   = document.getElementById('mode');
+    const algoSelect   = document.getElementById('algorithm');
+    const textHint     = document.getElementById('text-hint');
+    const keyHint      = document.getElementById('key-hint');
+    const keyInput     = document.getElementById('key');
+
+    function updateHints() {
+      const isEncrypt = modeSelect.value === 'encrypt';
+      const isCaesar  = algoSelect.value === 'caesar';
+
+      textHint.textContent = isEncrypt
+        ? 'masukkan plaintext yang akan dienkripsi'
+        : 'masukkan ciphertext yang akan didekripsi';
+
+      keyHint.textContent = isCaesar
+        ? 'jumlah geser huruf (integer, misal: 3)'
+        : 'jumlah rail / baris zig-zag (minimal 2)';
+
+      keyInput.min   = isCaesar ? 1 : 2;
+      keyInput.placeholder = isCaesar ? 'contoh: 3' : 'contoh: 3 (min 2)';
+    }
+
+    modeSelect.addEventListener('change', updateHints);
+    algoSelect.addEventListener('change', updateHints);
+    updateHints(); // jalankan saat halaman pertama kali dimuat
+  </script>
+
+</body>
+</html>
