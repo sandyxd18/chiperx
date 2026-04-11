@@ -147,7 +147,7 @@ if __name__ == '__main__':
                 print("  [!] Input tidak valid.")
 
     print("\n" + "=" * 48)
-    print("   CIPHER LAB — Mode CLI")
+    print("   CIPHERX — Mode CLI")
     print("   Caesar Cipher & Rail Fence Cipher")
     print("=" * 48)
 
