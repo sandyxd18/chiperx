@@ -228,7 +228,7 @@ def display_results(plaintext, ciphertext, decrypted, mode_name):
     print(f"  {'='*55}")
 
 
-# ========================== HANDLER OPERASI ==========================
+# handler
 
 def handle_encrypt_text():
     print(f"\n  ENKRIPSI TEKS (MODE CBC)")
