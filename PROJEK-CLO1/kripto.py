@@ -334,17 +334,17 @@ def handle_decrypt(mode):
     mode_upper = mode.upper()
     print(f"\n  DEKRIPSI TEKS (MODE {mode_upper})")
 
-    cipher_input = cipher_input()
-    if cipher_input is None:
+    ct = cipher_input()
+    if ct is None:
         return
 
-    cipher_input = ''.join(c for c in cipher_input.upper() if c.isalpha())
+    ct = ''.join(c for c in ct.upper() if c.isalpha())
 
-    if not cipher_input:
+    if not ct:
         print("  Ciphertext tidak boleh kosong!")
         return
 
-    if len(cipher_input) % BLOCK_SIZE != 0:
+    if len(ct) % BLOCK_SIZE != 0:
         print(f"  Error: Panjang ciphertext harus kelipatan {BLOCK_SIZE}!")
         return
 
@@ -365,13 +365,13 @@ def handle_decrypt(mode):
         print(f"  IV         : {IV}")
 
     if mode == 'ecb':
-        plaintext = ecb_decrypt(cipher_input, key)
+        plaintext = ecb_decrypt(ct, key)
     else:
-        plaintext = cbc_decrypt(cipher_input, key)
+        plaintext = cbc_decrypt(ct, key)
     print(f"\n  {'='*55}")
     print(f"  HASIL DEKRIPSI {mode_upper}")
     print(f"  {'='*55}")
-    print(f"  Ciphertext : {cipher_input}")
+    print(f"  Ciphertext : {ct}")
     print(f"  Plaintext  : {plaintext}")
     print(f"  {'='*55}")
 
