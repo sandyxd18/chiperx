@@ -84,17 +84,6 @@ def pbox_inverse(block):
     for i in range(len(block)):
         result[i] = block[PBOX_INV[i]]
     return ''.join(result)
-    result = [''] * len(block)
-    for i in range(len(block)):
-        result[i] = block[PBOX[i]]
-    return ''.join(result)
-
-
-def pbox_inverse(block):
-    result = [''] * len(block)
-    for i in range(len(block)):
-        result[i] = block[PBOX_INV[i]]
-    return ''.join(result)
 
 
 def caesar_encrypt(block):
