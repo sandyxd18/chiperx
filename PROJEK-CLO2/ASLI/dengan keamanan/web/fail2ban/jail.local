@@ -1,0 +1,11 @@
+[DEFAULT]
+banaction = iptables-multiport
+
+[php-login]
+enabled  = true
+port     = http,https
+filter   = php-login
+logpath  = /var/log/auth-login.log
+maxretry = 20
+bantime  = 3600
+findtime = 7200

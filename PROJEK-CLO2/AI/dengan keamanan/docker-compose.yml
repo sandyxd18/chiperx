@@ -1,0 +1,57 @@
+services:
+  web-server:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: web-server
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      db-server:
+        condition: service_healthy
+    environment:
+      DB_HOST: db-server
+      DB_NAME: kamsis_db
+      DB_USER: kamsis_user
+      DB_PASS: K4ms1s_S3cur3_P@ss!
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      kamsis-net:
+        ipv4_address: 172.20.0.9
+    restart: unless-stopped
+
+  db-server:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: db-server
+    environment:
+      MYSQL_ROOT_PASSWORD: R00t_S3cur3_2024!
+      MYSQL_DATABASE: kamsis_db
+      MYSQL_USER: kamsis_user
+      MYSQL_PASSWORD: K4ms1s_S3cur3_P@ss!
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      kamsis-net:
+        ipv4_address: 172.20.0.20
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  kamsis-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+
+volumes:
+  mysql_data:

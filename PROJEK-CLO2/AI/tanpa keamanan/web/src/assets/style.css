@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #16213e;
+    --bg-input: #0f3460;
+    --accent: #e94560;
+    --accent-hover: #c73e55;
+    --accent-glow: rgba(233, 69, 96, 0.15);
+    --danger: #ff4757;
+    --danger-bg: rgba(255, 71, 87, 0.1);
+    --warning: #ffa502;
+    --warning-bg: rgba(255, 165, 2, 0.1);
+    --success: #2ecc71;
+    --success-bg: rgba(46, 204, 113, 0.1);
+    --text-primary: #eee;
+    --text-secondary: #ccc;
+    --text-muted: #888;
+    --border: #1a1a4e;
+    --border-focus: #e94560;
+    --radius: 12px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 620px;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.lock-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.card-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+}
+
+.card-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.25s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.input-hint {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.25s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-danger {
+    background: #c0392b;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #a33025;
+    transform: translateY(-1px);
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.alert-danger {
+    background: var(--danger-bg);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    color: var(--danger);
+}
+
+.alert-success {
+    background: var(--success-bg);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    color: var(--success);
+}
+
+.alert-warning {
+    background: var(--warning-bg);
+    border: 1px solid rgba(255, 165, 2, 0.3);
+    color: var(--warning);
+}
+
+.card-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.card-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.card-footer a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+.dashboard-content {
+    padding: 5px 0;
+}
+
+.welcome-box {
+    background: var(--bg-input);
+    padding: 24px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.welcome-box h2 {
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+}
+
+.welcome-box p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.info-box {
+    background: rgba(233, 69, 96, 0.08);
+    border: 1px solid rgba(233, 69, 96, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.info-box h3 {
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.info-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-box ul li {
+    padding: 5px 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.comments-list {
+    padding: 10px 0;
+}
+
+.comment-item {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+}
+
+.comment-item:hover {
+    border-color: rgba(233, 69, 96, 0.3);
+}
+
+.comment-author {
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.comment-text {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.comment-date {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.no-comments {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 24px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 24px 20px;
+    }
+
+    .card-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: var(--accent);
+}
+
+.username-status {
+    position: absolute;
+    right: 12px;
+    font-size: 1.2rem;
+    display: none;
+}
+
+.username-status.available {
+    display: block;
+    color: var(--success);
+}
+
+.username-status.taken {
+    display: block;
+    color: var(--danger);
+}
+
+.password-requirements {
+    list-style: none;
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.password-requirements li {
+    width: calc(50% - 4px);
+    transition: color 0.3s ease;
+}
+
+.password-requirements li.valid {
+    color: var(--success);
+}
+
+.password-requirements li.invalid {
+    color: var(--danger);
+}
